@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.claude/
+apps/task-hub/node_modules/
+apps/task-hub/.next/
+*.log
+.DS_Store

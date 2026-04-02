@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "streamdeck": {
+      "command": "node",
+      "args": ["/Users/gimjaehwan/project/streamdeck/dist/index.js"]
+    }
+  }
+}
