@@ -13,14 +13,29 @@ description: 태스크 컨텍스트를 수집하고 Stream Deck 폴더에 세팅
 1. **GBIZ ID** (예: `GBIZ-25425`) → Notion 중심 검색
 2. **Slack 링크** (예: `https://herrencorp.slack.com/archives/...`) → 스레드에서 컨텍스트 추출
 3. **자유 텍스트** (예: `PR 리뷰 정리`, `배포 확인`) → 잔업/메모 용도의 간단 버튼
-4. **비어있음** → 현재 Git 브랜치에서 GBIZ ID 자동 추출
+4. **`clear`** 또는 **`clear 1`** → 폴더 비우기 (번호 없으면 전체, 있으면 해당 슬롯만)
+5. **비어있음** → 현재 Git 브랜치에서 GBIZ ID 자동 추출
 
 ## 입력 타입 판별
 
+- `clear` (또는 `clear N`) → **타입 0: 폴더 비우기**
 - `GBIZ-\d+` 패턴 매칭 → **타입 1: Notion 검색**
 - `slack.com` 또는 `slackMessage://` 포함 → **타입 2: Slack 스레드**
 - 그 외 텍스트 → **타입 3: 자유 텍스트 (잔업)**
 - 비어있음 → Git 브랜치에서 추출 후 타입 1로
+
+## 타입 0: clear → 폴더 비우기
+
+`/task clear` → 4개 폴더 전체 비우기
+`/task clear 1` → 슬롯 1번만 비우기 (1~4)
+
+비우는 방법:
+1. 해당 자식 페이지의 버튼들을 삭제 (key 1~14, key 0의 backtoparent은 유지)
+   - `streamdeck_write_page`로 directory_id 지정, clear_existing: true로 하되 backtoparent 버튼만 다시 넣기
+   - backtoparent 버튼: `{"key": 0, "plugin_uuid": "com.elgato.streamdeck.profile.backtoparent", "action_uuid": "com.elgato.streamdeck.profile.backtoparent", "plugin_name": "Profiles", "action_name": "상위 폴더"}`
+2. 메인 페이지의 폴더 아이콘을 기본 폴더 아이콘으로 교체
+   - `streamdeck_create_icon({ lucide: "folder", text: "Empty", bg_color: "linear-gradient(#374151, #1F2937)", font_size: 22, filename: "task-folder-empty" })`
+3. `streamdeck_restart_app`
 
 ## 타입 1: GBIZ ID → Notion 중심 검색
 
