@@ -114,18 +114,44 @@ streamdeck_create_icon({
 
 `streamdeck_write_page`로 자식 페이지에 링크 버튼들을 채웁니다:
 - directory_id: ProfileUUID를 대문자로 (예: 83EE7AAA-4D27-43D0-94E3-4C1E74AB90D0)
-- clear_existing: false (key 0의 backtoparent 버튼 유지!)
-- key 1부터 시작 (key 0은 "상위 폴더" 뒤로가기 버튼)
+- clear_existing: true (기존 내용 교체)
+- key 0에 backtoparent 버튼 다시 넣기
 
 각 링크에 대해:
-1. `streamdeck_create_icon` (font_size: 22 이상, show_title: false)
+1. `streamdeck_create_icon` (font_size: 18~22, show_title: false)
 2. `streamdeck_create_action` (command: `open "{URL}"`, filename: task-open-{type}-{id})
 
-**버튼 배치 (key 1부터, 있는 것만)**:
-- key 1: Notion (lucide: folder-open, bg: linear-gradient(#2D2D2D, #191919))
-- key 2: GitHub PR (lucide: git-pull-request, bg: linear-gradient(#238636, #1a7f37))
-- key 3: Slack (lucide: message-square, bg: linear-gradient(#611f69, #4A154B))
-- key 4: Figma / Google Sheets / 기타 링크
+### 폴더 내부 레이아웃 — 이슈별 Row 구분
+
+**여러 이슈가 하나의 폴더에 들어갈 때 (정기배포 등), 각 이슈를 Row로 구분합니다.**
+
+5x3 그리드 (15키):
+- key 0: ← Back (backtoparent)
+- Row 1 (key 1~4): 이슈 1 — [이슈이름] [Slack] [Notion] [Figma/기타]
+- Row 2 (key 5~9): 이슈 2 — [빈칸] [이슈이름] [Slack] [Notion] [Figma/기타]
+- Row 3 (key 10~14): 이슈 3 — [빈칸] [이슈이름] [Slack] [기타]
+
+**이슈 이름 버튼 (프리픽스)**: 각 Row의 첫 번째에 이슈 이름 아이콘을 배치합니다.
+- 이슈 이름 아이콘은 해당 Slack 스레드로 링크
+- 이슈별로 다른 배경색 사용:
+  - 버그/긴급: linear-gradient(#EF4444, #DC2626) (빨강)
+  - 기능개발: linear-gradient(#3B82F6, #2563EB) (파랑)
+  - 디자인: linear-gradient(#F59E0B, #D97706) (주황)
+  - 리팩토링: linear-gradient(#8B5CF6, #7C3AED) (보라)
+  - 기타: linear-gradient(#6B7280, #4B5563) (회색)
+
+**링크 버튼 (이슈 이름 옆에 배치)**:
+- Slack: lucide: message-square, bg: linear-gradient(#611f69, #4A154B)
+- Notion: lucide: folder-open, bg: linear-gradient(#2D2D2D, #191919)
+- GitHub PR: lucide: git-pull-request, bg: linear-gradient(#238636, #1a7f37)
+- Figma: lucide: layout, bg: linear-gradient(#F24E1E, #A259FF)
+- Google Sheets/Docs: lucide: external-link, bg: linear-gradient(#16A34A, #15803D)
+
+**단일 이슈 폴더 (GBIZ ID, 단일 Slack 링크 등)**:
+Row 1만 사용:
+- key 0: ← Back
+- key 1: 이슈이름 (프리픽스)
+- key 2~4: 관련 링크들 (Notion, PR, Slack, Figma 등)
 
 ### 아이콘 스타일 규칙
 
