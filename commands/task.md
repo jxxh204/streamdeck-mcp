@@ -81,12 +81,22 @@ cd /Users/gimjaehwan/project/gongbiz/gongbiz-crm-b2b-web && gh pr list --search 
 
 ### 폴더 슬롯 매핑 (고정)
 
-| Key | ProfileUUID | 용도 |
-|-----|-------------|------|
-| 0 | 83ee7aaa-4d27-43d0-94e3-4c1e74ab90d0 | 태스크 1 |
-| 1 | 1406ffdf-325f-4e9e-a07b-ea2f60df1aa9 | 태스크 2 |
-| 2 | c5f74bc2-b3a7-48de-8403-11da3d70f050 | 태스크 3 |
-| 3 | 37b1bca3-5024-45c6-8b76-c1540de7d75e | 태스크 4 |
+**Row 1 (key 0~3)**:
+| Key | action_id | ProfileUUID | 용도 |
+|-----|-----------|-------------|------|
+| 0 | a0c4d25e-e114-468b-a5dd-39068bceee3d | 83ee7aaa-4d27-43d0-94e3-4c1e74ab90d0 | 태스크 1 |
+| 1 | 2dec8811-db13-42de-a589-2e088e47602f | 1406ffdf-325f-4e9e-a07b-ea2f60df1aa9 | 태스크 2 |
+| 2 | b12375ee-6b3e-40cf-a08b-358dc42ad90f | c5f74bc2-b3a7-48de-8403-11da3d70f050 | 태스크 3 |
+| 3 | b1901b38-0dc8-4a81-af0c-c89e0295b7f7 | 37b1bca3-5024-45c6-8b76-c1540de7d75e | 태스크 4 |
+
+**Row 2 (key 5~7)**:
+| Key | action_id | ProfileUUID | 용도 |
+|-----|-----------|-------------|------|
+| 5 | 950a38d6-6750-496f-97ea-550d50a4f878 | 64022783-8028-4ce6-8c8a-888cc803b1b0 | 태스크 5 |
+| 6 | 4137dd37-840d-49b0-a452-4a515e944173 | 57bf2bb2-4e3e-437b-adb0-98a5ba45709d | 태스크 6 |
+| 7 | 8d4fa9b2-9ad4-4118-b431-6429f4e95eb4 | 0839f258-de64-47f3-83c9-65bc7ef9d439 | 태스크 7 |
+
+**Row 2 고정 버튼 (key 8~9)**: Git Log, Reviews — 변경하지 않음
 
 각 폴더의 자식 페이지 directory_id는 ProfileUUID를 대문자로 변환한 것입니다.
 
