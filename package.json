@@ -1,19 +1,48 @@
 {
   "name": "streamdeck-mcp",
   "version": "1.0.0",
-  "description": "Custom Stream Deck MCP Server — high-quality SVG icons, profile management, and task context integration for Claude Code",
+  "description": "Custom Stream Deck MCP Server for Claude Code — high-quality SVG icons, full profile management, and task context aggregation from Slack/Notion/GitHub",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
     "streamdeck-mcp": "dist/index.js"
   },
+  "files": [
+    "dist",
+    "commands",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jxxh204/streamdeck-mcp.git"
+    "url": "git+https://github.com/jxxh204/streamdeck-mcp.git"
   },
-  "keywords": ["mcp", "stream-deck", "elgato", "claude-code", "icons", "svg"],
+  "bugs": {
+    "url": "https://github.com/jxxh204/streamdeck-mcp/issues"
+  },
+  "homepage": "https://github.com/jxxh204/streamdeck-mcp#readme",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "stream-deck",
+    "elgato",
+    "claude-code",
+    "anthropic",
+    "icons",
+    "svg",
+    "lucide",
+    "task-management",
+    "productivity"
+  ],
   "author": "jxxh204",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "os": [
+    "darwin"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
