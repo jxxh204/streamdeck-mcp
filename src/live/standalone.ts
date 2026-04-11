@@ -9,9 +9,15 @@
  * Ignores: file count changes, cost updates, minor diffs.
  *
  * Usage:
- *   node dist/live/standalone.js [--interval 15] [--profile 공비서] [--page Live]
+ *   node dist/live/standalone.js --profile <profile-name> [--page Live] [--interval 15] [--repo /path/to/repo]
  *   node dist/live/standalone.js --install
  *   node dist/live/standalone.js --uninstall
+ *
+ * Configuration via environment variables (for launchd):
+ *   STREAMDECK_PROFILE   Target Stream Deck profile name (required)
+ *   STREAMDECK_PAGE      Live dashboard page name (default: Live)
+ *   STREAMDECK_GIT_REPOS Comma-separated list of git repo paths
+ *   STREAMDECK_INTERVAL  Polling interval in seconds (default: 15)
  */
 
 import * as fs from "node:fs";
@@ -40,12 +46,29 @@ function parseArgs(): Config | { action: "install" | "uninstall" } {
   if (args.includes("--install")) return { action: "install" };
   if (args.includes("--uninstall")) return { action: "uninstall" };
 
-  return {
-    interval: 15,
-    profileName: "공비서",
-    pageName: "Live",
-    gitRepos: ["/Users/gimjaehwan/project/gongbiz/gongbiz-crm-b2b-web"],
+  const config: Config = {
+    interval: parseInt(process.env.STREAMDECK_INTERVAL || "15", 10),
+    profileName: process.env.STREAMDECK_PROFILE || "",
+    pageName: process.env.STREAMDECK_PAGE || "Live",
+    gitRepos: (process.env.STREAMDECK_GIT_REPOS || "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean),
   };
+
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === "--profile" && args[i + 1]) config.profileName = args[i + 1]!;
+    else if (args[i] === "--page" && args[i + 1]) config.pageName = args[i + 1]!;
+    else if (args[i] === "--interval" && args[i + 1]) config.interval = parseInt(args[i + 1]!, 10);
+    else if (args[i] === "--repo" && args[i + 1]) config.gitRepos.push(args[i + 1]!);
+  }
+
+  if (!config.profileName) {
+    console.error("Error: --profile <name> is required (or set STREAMDECK_PROFILE env var)");
+    process.exit(1);
+  }
+
+  return config;
 }
 
 // ── Launchd ────────────────────────────────────────────────────────────

@@ -129,7 +129,7 @@ cp commands/task.md ~/.claude/commands/
 
 ```bash
 # Search Notion → extract PR/Slack/Figma links automatically
-/task GBIZ-25425
+/task PROJ-123
 
 # Read Slack thread → extract all URLs (Notion, GitHub, Figma, Sheets)
 /task https://slack.com/archives/...

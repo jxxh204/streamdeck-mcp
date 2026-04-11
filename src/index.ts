@@ -254,7 +254,7 @@ server.tool(
   "Start/stop a live dashboard that auto-updates Stream Deck buttons based on active Claude sessions, Git status, and running processes.",
   {
     action: z.enum(["start", "stop", "status"]).describe("start/stop/status"),
-    profile_name: z.string().optional().describe("Target profile (default: 공비서)."),
+    profile_name: z.string().describe("Target Stream Deck profile name."),
     page_name: z.string().optional().describe("Page name for live dashboard (default: Live)."),
     refresh_interval: z.number().int().optional().describe("Refresh interval in seconds (default: 15)."),
     sources: z.array(z.string()).optional().describe("Data sources: claude, git, processes (default: all)."),
@@ -273,7 +273,7 @@ server.tool(
 
       // start
       const config: DaemonConfig = {
-        profile_name: args.profile_name || "공비서",
+        profile_name: args.profile_name,
         page_name: args.page_name || "Live",
         refresh_interval: args.refresh_interval || 15,
         sources: args.sources || ["claude", "git", "processes"],

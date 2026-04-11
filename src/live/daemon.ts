@@ -10,7 +10,7 @@ import { fetchClaudeSessions, type ClaudeSession } from "./sources/claude-monito
 import { fetchGitStatus, type GitInfo } from "./sources/git-status.js";
 import { detectProcesses, type ProcessInfo } from "./sources/process-detector.js";
 
-const DEFAULT_GIT_REPOS = ["/Users/gimjaehwan/project/gongbiz/gongbiz-crm-b2b-web"];
+const DEFAULT_GIT_REPOS: string[] = [];
 
 export interface DaemonConfig {
   profile_name: string;
